@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Velha - Escolha</title>
+  <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Jogo da Velha</h1>
+    <p>Escolha o jogador que você deseja ser:</p>
+    <div class="player-selection">
+      <button onclick="choosePlayer('X')">X</button>
+      <button onclick="choosePlayer('O')">O</button>
+    </div>
+  </div>
+
+  <script>
+    function choosePlayer(symbol) {
+      localStorage.setItem('playerSymbol', symbol);
+      window.location.href = 'game.html';
+    }
+  </script>
+</body>
+</html>

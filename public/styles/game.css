@@ -1,0 +1,74 @@
+/* Estilização geral */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to right, #4facfe, #2b67db);
+  font-family: Arial, sans-serif;
+}
+
+/* Título */
+#title {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 20px 0;
+  color: white;
+}
+
+/* Container principal */
+#game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Tabuleiro */
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 120px);
+  gap: 10px;
+}
+
+.cell {
+  background: white;
+  border: 2px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Painel de informações */
+#info-panel {
+  background: #0f4c81;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  width: 250px;
+  text-align: center;
+}
+
+#info-panel p {
+  margin: 10px 0;
+}
+
+button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #218838;
+}
