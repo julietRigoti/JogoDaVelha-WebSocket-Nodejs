@@ -69,6 +69,15 @@ body {
   background-color: #c3332d !important;
 }
 
+.btn-primary:hover {
+  background-color:  #112736!important;
+  color: #f8bc63 !important;
+}
+
 .text-decoration-none {
+  color: #112736;
+}
+
+.text-decoration-none:hover {
   color: #c3332d;
-}  
+}
