@@ -1,0 +1,81 @@
+body {
+  background: #112736 !important;
+  height: 100vh /*vh = viewport height (altura da janela de visualização*/ !important;
+  color: #e9881e !important;
+  font-family: "Press Start 2P", cursive !important;
+}
+
+.principal-div {
+  width: 80%; /* A largura será 80% da largura da tela */
+  max-width: 1200px; /* A largura máxima será 1200px */
+  height: auto; /* A altura será ajustada automaticamente */
+  padding: 50px; /* Espaçamento interno */
+  margin: 0 auto; /* Centraliza a div horizontalmente */
+  text-align: center;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+  .principal-div {
+    width: 90%; /* Aumenta a largura para 90% em telas menores */
+    padding: 15px; /* Reduz o espaçamento interno */
+  }
+}
+
+/* Media query para telas muito pequenas */
+@media (max-width: 480px) {
+  .principal-div {
+    width: 100%; /* A largura será 100% da tela */
+    padding: 10px; /* Reduz ainda mais o espaçamento interno */
+  }
+}
+
+.imagem-x {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+}
+.imagem-o {
+  position: fixed;
+  bottom: 0;
+  left: 100px;
+  height: 100px;
+}
+
+.room-container{
+   display: inline-block;
+
+   width: 50%;
+   background-color: #efdebb;
+   border-radius: 10px;
+   box-shadow: 0 0 10px #efdebb;
+}
+
+.form-control {
+  width:50%;
+  border-radius: 0;
+  border: 1px solid #e9881e;
+  color: #e9881e;
+}
+
+.btn-primary {
+  border-radius: 0;
+  width: 45%;
+  background-color: #e9881e !important;
+}
+
+.btn-primary:hover {
+  background-color: #c3332d !important;
+  color: #f8bc63 !important;
+}
+.btn-lg {
+  font-size: 1.5rem;
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.btn-lg:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.3);
+}
