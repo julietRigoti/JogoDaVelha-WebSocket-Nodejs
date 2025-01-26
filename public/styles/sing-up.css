@@ -1,58 +1,10 @@
-body {
-  background: #112736 !important;
-  height: 100vh /*vh = viewport height (altura da janela de visualização*/ !important;
-  color: #e9881e !important;
-  font-family: "Press Start 2P", cursive !important;
-}
-
-.principal-div {
-  width: 80%; /* A largura será 80% da largura da tela */
-  max-width: 1200px; /* A largura máxima será 1200px */
-  height: auto; /* A altura será ajustada automaticamente */
-  padding: 50px; /* Espaçamento interno */
-  margin: 0 auto; /* Centraliza a div horizontalmente */
-  text-align: center;
-}
-
-/* Media query para telas menores */
-@media (max-width: 768px) {
-  .principal-div {
-    width: 90%; /* Aumenta a largura para 90% em telas menores */
-    padding: 15px; /* Reduz o espaçamento interno */
-  }
-}
-
-/* Media query para telas muito pequenas */
-@media (max-width: 480px) {
-  .principal-div {
-    width: 100%; /* A largura será 100% da tela */
-    padding: 10px; /* Reduz ainda mais o espaçamento interno */
-  }
-}
-
-.imagem-x {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 100px;
-}
-.imagem-o {
-  position: fixed;
-  bottom: 0;
-  left: 100px;
-  height: 100px;
-}
-
 .sing-up-container {
   padding: 1.5rem;
-  margin-top: 2.5em;
+  margin-top: 1.5em;
   background-color: #efdebb;
   border-radius: 20px;
   box-shadow: 0 0 10px #efdebb;
   color: #c3332d;
-}
-.form-label {
-  margin-left: 1.5rem;
 }
 
 .form-control {
@@ -78,4 +30,8 @@ body {
 
 .text-decoration-none:hover {
   color: #c3332d;
+}
+
+#singUpForm {
+  text-align: start;
 }
