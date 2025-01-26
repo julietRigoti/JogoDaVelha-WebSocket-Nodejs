@@ -22,26 +22,38 @@
     <div class="principal-div">
       <h1 class="text-center">Jogo da Velha</h1>
 
-      <button
-        class="pixel-btn-login"
-        onclick="window.location.href='login.html';"
-      >
-        Entrar
-      </button>
-      <button
-        class="pixel-btn-singup"
-        onclick="window.location.href='sing-up.html';"
-      >
-        Criar conta
-      </button>
+      <div class="d-flex flex-column w-100 gap-3 login-buttons-container">
+        <button
+          class="pixel-btn-login"
+          onclick="chooseLoginOrSingup('Login')"
+        >
+          Entrar
+        </button>
+        <button
+          class="pixel-btn-singup"
+          onclick="chooseLoginOrSingup('Sing-up')"
+        >
+          Criar conta
+        </button>
+      </div>
+
+      <img class="imagem-x" src="imagens/X.gif" alt="Pixelart tabuleiro com X" />
+      <img class="imagem-o" src="imagens/O.gif" alt="Pixelart tabuleiro com O" />
     </div>
-    <img class="imagem-x" src="imagens/X.gif" alt="Pixelart tabuleiro com X" />
-    <img class="imagem-o" src="imagens/O.gif" alt="Pixelart tabuleiro com O" />
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
-    >
-  </script>
+    ></script>
+    <script>
+      function chooseLoginOrSingup(world){
+        if(world === "Login"){
+          window.location.href = "login.html";
+        } else {
+          window.location.href = "sing-up.html";
+        }
+      }
+    </script>
   </body>
 </html>
