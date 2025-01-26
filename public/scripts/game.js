@@ -1,3 +1,4 @@
+// Conexão com o servidor via Socket.io
 const socket = io();
 let playerSymbol = null; // Símbolo do jogador
 const boardElement = document.getElementById("board");
@@ -26,28 +27,27 @@ socket.on("updateBoard", (board) => {
   });
 });
 
-// Exibe vencedor ou empate
+// Atualiza o status do jogador atual
+socket.on("updateCurrentPlayer", (currentPlayer) => {
+  const statusText = `Jogador ${currentPlayer} jogando`;
+  document.getElementById("currentPlayer").innerText = statusText;
+});
+
+// Exibe o vencedor ou empate
 socket.on("gameOver", (result) => {
   if (result === "Empate") {
     alert("O jogo empatou!");
   } else {
+    document.getElementById("winner").innerText = result;
     alert(`Jogador ${result} venceu!`);
   }
 });
 
-socket.on("updateCurrentPlayer", (currentPlayer) => {
-  document.getElementById("currentPlayer").innerText = `Jogador atual: ${currentPlayer}`;
-});
-
-// Atualiza o placar
-socket.on("updateScores", (scores) => {
-  document.getElementById("scoreX").innerText = `Vitórias X: ${scores.X}`;
-  document.getElementById("scoreO").innerText = `Vitórias O: ${scores.O}`;
-});
-
-// Reiniciar jogo
-document.getElementById("restartButton").addEventListener("click", () => {
+// Reiniciar o jogo
+const restartButton = document.getElementById("restartButton");
+restartButton.addEventListener("click", () => {
   socket.emit("restartGame");
+  document.getElementById("winner").innerText = "-"; // Limpa o vencedor
 });
 
 // Realiza uma jogada

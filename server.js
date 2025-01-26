@@ -1,58 +1,71 @@
-const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
+const express = require("express"); // Biblioteca para criar servidores web.
+const http = require("http"); // Módulo nativo para criar servidores HTTP.
+const { Server } = require("socket.io"); // Biblioteca para comunicação em tempo real.
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+const app = express(); // Inicializa o servidor Express.
+const server = http.createServer(app); // Cria um servidor HTTP usando o Express.
+const io = new Server(server); // Inicializa o Socket.IO no servidor.
 
-app.use(express.static("public"));
+app.use(express.static("public")); // Define a pasta "public" como raiz para arquivos estáticos.
 
-// Variáveis do jogo
-let board = Array(9).fill(null);
-let currentPlayer = "X";
-let scores = { X: 0, O: 0 };
+// Variáveis globais do jogo
+let board = Array(9).fill(null); // Representa o tabuleiro do jogo.
+let currentPlayer = "X"; // Começa com o jogador X.
+let players = {}; // Mapeia os sockets para os símbolos (X ou O).
 
-// Atribui símbolos aos jogadores
+// Quando um cliente se conecta
 io.on("connection", (socket) => {
-  console.log("Novo jogador conectado!");
+  console.log("Novo jogador conectado:", socket.id);
 
-  // Atribuir símbolos (X ou O)
-  const playerSymbol = io.engine.clientsCount % 2 === 0 ? "O" : "X";
+  // Atribui um símbolo (X ou O) ao jogador
+  const playerSymbol = Object.values(players).includes("X") ? "O" : "X";
+  players[socket.id] = playerSymbol;
   socket.emit("assignSymbol", playerSymbol);
+  console.log(`Jogador ${playerSymbol} conectado!`);
 
-  // Lógica da jogada
+  // Atualiza o jogador atual no cliente
+  io.emit("updateCurrentPlayer", currentPlayer);
+
+  // Quando o jogador faz uma jogada
   socket.on("makeMove", ({ index, symbol }) => {
     if (board[index] === null && symbol === currentPlayer) {
-      board[index] = symbol;
+      board[index] = symbol; // Atualiza o tabuleiro com o símbolo do jogador.
 
-      // Verifica vencedor
+      // Verifica se há vencedor
       const winner = checkWinner();
       if (winner) {
-        scores[winner]++;
-        io.emit("gameOver", winner);
+        io.emit("gameOver", winner); // Notifica os clientes do vencedor.
         resetBoard();
       } else if (!board.includes(null)) {
-        io.emit("gameOver", "Empate");
+        io.emit("gameOver", "Empate"); // Notifica os clientes do empate.
         resetBoard();
       } else {
+        // Alterna o jogador atual
         currentPlayer = currentPlayer === "X" ? "O" : "X";
+        io.emit("updateCurrentPlayer", currentPlayer);
       }
 
-      io.emit("updateBoard", board);
-      io.emit("updateScores", scores);
-      io.emit("updateCurrentPlayer", currentPlayer);
+      io.emit("updateBoard", board); // Atualiza o tabuleiro nos clientes.
     }
   });
 
-  // Reiniciar jogo
+  // Quando o jogo é reiniciado
   socket.on("restartGame", () => {
     resetBoard();
-    io.emit("updateBoard", board);
+    io.emit("updateBoard", board); // Envia o tabuleiro vazio.
+    io.emit("updateCurrentPlayer", currentPlayer); // Atualiza o jogador atual.
+  });
+
+  // Quando o jogador se desconecta
+  socket.on("disconnect", () => {
+    console.log(`Jogador ${players[socket.id]} desconectado: ${socket.id}`);
+    delete players[socket.id];
+    resetBoard();
+    io.emit("updateBoard", board); // Envia o tabuleiro vazio.
   });
 });
 
-// Função para verificar vencedor
+// Verifica se há um vencedor
 function checkWinner() {
   const winningCombinations = [
     [0, 1, 2],
@@ -68,20 +81,20 @@ function checkWinner() {
   for (const combo of winningCombinations) {
     const [a, b, c] = combo;
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      return board[a];
+      return board[a]; // Retorna o símbolo do vencedor (X ou O).
     }
   }
 
-  return null;
+  return null; // Nenhum vencedor.
 }
 
-// Reinicia o tabuleiro
+// Reinicia o tabuleiro e o jogador atual
 function resetBoard() {
   board = Array(9).fill(null);
-  currentPlayer = "X";
+  currentPlayer = "X"; // Reinicia para o jogador X.
 }
 
-const PORT = 3000;
+const PORT = 3000; // Define a porta do servidor.
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
